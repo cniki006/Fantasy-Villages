@@ -93,7 +93,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97050d8885e8b834f994cddfbc06b853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  mineCommand: 0
+  bringingGold: 0
+  speed: 40
 --- !u!65 &488513574490101506
 BoxCollider:
   m_ObjectHideFlags: 0

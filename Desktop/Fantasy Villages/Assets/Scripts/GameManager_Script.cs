@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameManager_Script : MonoBehaviour
 {
     public List <GameObject> ControlledCreatures = new List<GameObject>();
-
+    [SerializeField] public int gold;
 
     // Start is called before the first frame update
     void Start()
@@ -39,11 +39,13 @@ public class GameManager_Script : MonoBehaviour
                     ControlledCreatures.Add(hitEvent.collider.gameObject);
                     //Debug.Log(hitEvent.collider.gameObject.name);
                 }
+                if (hitEvent.collider.transform.tag == "Building")
+                {
+                    //ControlledCreatures.Clear();
+                    ControlledCreatures.Add(hitEvent.collider.gameObject);
+                    //Debug.Log(hitEvent.collider.gameObject.name);
+                }
             }
         }
     }
-
-
-
-
 }

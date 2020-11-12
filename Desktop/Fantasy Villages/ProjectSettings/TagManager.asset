@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Creature
   - Plane
+  - GoldMine
+  - GoldCollector
+  - Building
   layers:
   - Default
   - TransparentFX
