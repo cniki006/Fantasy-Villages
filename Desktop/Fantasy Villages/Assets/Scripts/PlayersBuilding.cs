@@ -9,6 +9,7 @@ public class PlayersBuilding : MonoBehaviour
     [SerializeField] Button button1;
     [SerializeField] GameObject unit1;
     [SerializeField] private int unit1price;
+    [SerializeField] public float Health;
     public float unit1TrainingTime;
     private bool ClickBool = false;
 
@@ -32,6 +33,7 @@ public class PlayersBuilding : MonoBehaviour
         else { button1.gameObject.SetActive(false); }
         button1.onClick.AddListener(ClickButton1);
         CreateUnit1();
+        if (Health <= 0) Destroy(this.gameObject);
     }
         
     void ClickButton1()
@@ -52,7 +54,7 @@ public class PlayersBuilding : MonoBehaviour
         {
             if (ClickBool == true && gameManager_Script.gold >= unit1price)
             {
-                Instantiate(unit1, new Vector3(transform.position.x+40, 0, transform.position.z+40), Quaternion.identity);
+                Instantiate(unit1, new Vector3(transform.position.x, 0, transform.position.z-50), Quaternion.identity);
                 ClickBool = false;
                 gameManager_Script.gold -= unit1price;
             }

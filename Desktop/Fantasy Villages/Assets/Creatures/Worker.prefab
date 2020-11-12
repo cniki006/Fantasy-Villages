@@ -94,8 +94,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   builder: 1
+  soldier: 0
+  health: 10
   mineCommand: 0
   bringingGold: 0
+  fightCommand: 0
   speed: 40
 --- !u!65 &488513574490101506
 BoxCollider:

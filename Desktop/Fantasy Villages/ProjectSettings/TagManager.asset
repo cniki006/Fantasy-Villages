@@ -10,6 +10,7 @@ TagManager:
   - GoldCollector
   - Building
   - Worker
+  - Enemy
   layers:
   - Default
   - TransparentFX

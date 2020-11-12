@@ -35,6 +35,7 @@ public class BuildingManager : MonoBehaviour
         if (gameManager_Script.gold >= buildingPrices[0])
         {
             ClickBool = true;
+            gameManager_Script.ControlledCreatures.Clear();
         }
     }
 

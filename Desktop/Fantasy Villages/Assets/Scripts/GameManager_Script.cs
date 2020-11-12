@@ -27,19 +27,8 @@ public class GameManager_Script : MonoBehaviour
     {
         if (ControlledCreatures.Count != 0 && Input.GetMouseButtonDown(0) && !Input.GetKey(KeyCode.A) && !(Input.mousePosition.x > Screen.width-200 && Input.mousePosition.y < 120))
         {
-            Ray camRay1 = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitEvent1;
-            if (Physics.Raycast(camRay1, out hitEvent1))
-            {
-                if (hitEvent1.collider.transform.tag == "Plane")
-                {
                     ControlledCreatures.Clear();
-                }
-            }
-        }
-
-        
-
+        }    
         if (Input.GetMouseButtonDown(0))
         {
             Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);

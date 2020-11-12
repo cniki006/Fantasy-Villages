@@ -8,8 +8,12 @@ public class CreatureBehavior : MonoBehaviour
 {
     bool UnderControl = false;
     [SerializeField] public bool builder;
-    public bool mineCommand, bringingGold = false;
+    [SerializeField] public bool soldier;
+    [SerializeField] public float health;
+    public bool mineCommand, bringingGold, fightCommand = false;
+    
     GameObject mine;
+    GameObject enemy;
     private Vector3 movePoint;
     [SerializeField] private float speed;
 
@@ -27,6 +31,8 @@ public class CreatureBehavior : MonoBehaviour
         UnderControlCheck();
         MoveCommand();
         if (mineCommand == true) MineCommand(mine);
+        if (fightCommand == true) FightCommand(enemy);
+        if (health <= 0) Destroy(this.gameObject);
     }
 
     void UnderControlCheck ()
@@ -54,19 +60,26 @@ public class CreatureBehavior : MonoBehaviour
                 {
                     movePoint = new Vector3(hitEvent1.point.x,transform.position.y,hitEvent1.point.z);
                     mineCommand = false;
+                    fightCommand = false;
                 }
-                if (hitEvent1.collider.transform.tag == "GoldMine")
+                if (hitEvent1.collider.transform.tag == "GoldMine" && builder == true)
                 {
                     mineCommand = true;
                     mine = hitEvent1.collider.gameObject;
                     
                     //Debug.Log(hitEvent.collider.gameObject.name);
                 }
+                if (hitEvent1.collider.transform.tag == "Enemy" && soldier == true)
+                {
+                    enemy = hitEvent1.collider.gameObject;
+                    fightCommand = true;
+                    //Debug.Log(hitEvent.collider.gameObject.name);
+                }
             }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         GameObject GameManager = GameObject.Find("GameManager");
         GameManager_Script gameManager_Script = GameManager.GetComponent<GameManager_Script>();
@@ -82,6 +95,12 @@ public class CreatureBehavior : MonoBehaviour
             bringingGold = false;
             gameManager_Script.gold += 10;
         }
+
+        if (other.tag == "Enemy" && fightCommand == true)
+        {
+            Enemy enemyStats = other.GetComponent<Enemy>();
+            enemyStats.health -= 10;
+        }
     }
     private void MineCommand(GameObject chosenMine)
 
@@ -96,5 +115,12 @@ public class CreatureBehavior : MonoBehaviour
     {
 
          transform.position = Vector3.MoveTowards(transform.position, movePoint, speed * Time.deltaTime); 
+    }
+
+    private void FightCommand(GameObject chosenEnemy)
+    {
+
+        movePoint = enemy.transform.position + new Vector3(Random.Range(-5,5),0,Random.Range(-5,5));
+
     }
 }
