@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 public class GameManager_Script : MonoBehaviour
 {
     public List <GameObject> ControlledCreatures = new List<GameObject>();
     [SerializeField] public int gold;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,10 +25,20 @@ public class GameManager_Script : MonoBehaviour
 
     void ChooseControlledCreatures ()
     {
-        if (ControlledCreatures.Count != 0 && Input.GetMouseButtonDown(0) && !Input.GetKey(KeyCode.A))
+        if (ControlledCreatures.Count != 0 && Input.GetMouseButtonDown(0) && !Input.GetKey(KeyCode.A) && !(Input.mousePosition.x > Screen.width-200 && Input.mousePosition.y < 120))
         {
-            ControlledCreatures.Clear();
+            Ray camRay1 = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitEvent1;
+            if (Physics.Raycast(camRay1, out hitEvent1))
+            {
+                if (hitEvent1.collider.transform.tag == "Plane")
+                {
+                    ControlledCreatures.Clear();
+                }
+            }
         }
+
+        
 
         if (Input.GetMouseButtonDown(0))
         {

@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class CreatureBehavior : MonoBehaviour
 {
     bool UnderControl = false;
+    [SerializeField] public bool builder;
     public bool mineCommand, bringingGold = false;
     GameObject mine;
     private Vector3 movePoint;

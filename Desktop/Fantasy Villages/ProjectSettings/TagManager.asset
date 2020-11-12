@@ -9,6 +9,7 @@ TagManager:
   - GoldMine
   - GoldCollector
   - Building
+  - Worker
   layers:
   - Default
   - TransparentFX
