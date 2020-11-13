@@ -9,7 +9,7 @@ public class PlayersBuilding : MonoBehaviour
     [SerializeField] Button button1;
     [SerializeField] GameObject unit1;
     [SerializeField] private int unit1price;
-    [SerializeField] public float Health;
+    [SerializeField] public float BHealth;
     public float unit1TrainingTime;
     private bool ClickBool = false;
 
@@ -18,6 +18,14 @@ public class PlayersBuilding : MonoBehaviour
     void Start()
     {
         button1.gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            BHealth -= 10;
+        }
     }
 
     // Update is called once per frame
@@ -33,7 +41,7 @@ public class PlayersBuilding : MonoBehaviour
         else { button1.gameObject.SetActive(false); }
         button1.onClick.AddListener(ClickButton1);
         CreateUnit1();
-        if (Health <= 0) Destroy(this.gameObject);
+        if (BHealth <= 0) Destroy(this.gameObject);
     }
         
     void ClickButton1()

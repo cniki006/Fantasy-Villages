@@ -352,7 +352,7 @@ MonoBehaviour:
   button1: {fileID: 30738774721861677}
   unit1: {fileID: 5365936364298125808, guid: ad44e6ffde6c65e478edbbf51c154d28, type: 3}
   unit1price: 200
-  Health: 100
+  BHealth: 100
   unit1TrainingTime: 0
 --- !u!23 &5348855657368826321
 MeshRenderer:

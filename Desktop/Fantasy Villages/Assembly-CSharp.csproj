@@ -67,9 +67,11 @@
     <Compile Include="Assets\Scripts\ControllCamera.cs" />
     <Compile Include="Assets\Scripts\CreatureBehavior.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\EnemyAi.cs" />
     <Compile Include="Assets\Scripts\GameManager_Script.cs" />
     <Compile Include="Assets\Scripts\HUD.cs" />
     <Compile Include="Assets\Scripts\Mine.cs" />
+    <Compile Include="Assets\Scripts\OrcSpawner.cs" />
     <Compile Include="Assets\Scripts\PlayersBuilding.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/nikita.kiuru/Desktop/Fantasy Villages/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

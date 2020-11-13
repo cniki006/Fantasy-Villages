@@ -11,6 +11,7 @@ public class CreatureBehavior : MonoBehaviour
     [SerializeField] public bool soldier;
     [SerializeField] public float health;
     public bool mineCommand, bringingGold, fightCommand = false;
+    private GameObject fighterTarget;
     
     GameObject mine;
     GameObject enemy;
@@ -33,6 +34,7 @@ public class CreatureBehavior : MonoBehaviour
         if (mineCommand == true) MineCommand(mine);
         if (fightCommand == true) FightCommand(enemy);
         if (health <= 0) Destroy(this.gameObject);
+        //FighterStation();
     }
 
     void UnderControlCheck ()
@@ -45,6 +47,16 @@ public class CreatureBehavior : MonoBehaviour
         }
         else { UnderControl = false; }
     }
+
+    //void FighterStation()
+    //{
+    //    FightCommand(GameObject.Find("Orc")
+    //    if (Vector3.Distance(transform.position, GameObject.Find("Orc").transform.position) <= 20000.0f && soldier == true)
+    //    {
+    //        fightCommand = true;
+    //        FightCommand(GameObject.Find("Orc"));
+    //    }
+    //}
 
     void MoveCommand()
     {
@@ -99,7 +111,7 @@ public class CreatureBehavior : MonoBehaviour
         if (other.tag == "Enemy" && fightCommand == true)
         {
             Enemy enemyStats = other.GetComponent<Enemy>();
-            enemyStats.health -= 10;
+            enemyStats.HP -= 10;
         }
     }
     private void MineCommand(GameObject chosenMine)
@@ -120,7 +132,7 @@ public class CreatureBehavior : MonoBehaviour
     private void FightCommand(GameObject chosenEnemy)
     {
 
-        movePoint = enemy.transform.position + new Vector3(Random.Range(-5,5),0,Random.Range(-5,5));
+        movePoint = enemy.transform.position + new Vector3(Random.Range(-100,100),0,Random.Range(-5,5));
 
     }
 }

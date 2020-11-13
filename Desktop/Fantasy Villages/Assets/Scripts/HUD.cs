@@ -8,12 +8,13 @@ using UnityEngine.UI;
 public class HUD : MonoBehaviour
 {
     [SerializeField] private Text goldText;
-
+    [SerializeField] private Text defeat;
+ 
     public void SetGold(int value) { goldText.text = System.String.Format("{0}: {1}","Gold",value) ; }
     // Start is called before the first frame update
     void Start()
     {
-
+        defeat.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -21,6 +22,11 @@ public class HUD : MonoBehaviour
     {
         GameObject GameManager = GameObject.Find("GameManager");
         GameManager_Script gameManager_Script = GameManager.GetComponent<GameManager_Script>();
+        GameObject TownCenter = GameObject.Find("TownCenter");
+        PlayersBuilding playersBuilding = TownCenter.GetComponent<PlayersBuilding>();
+        if (playersBuilding.BHealth <= 0)
+        { defeat.gameObject.SetActive(true); 
+        }
         SetGold(gameManager_Script.gold);
     }
 }

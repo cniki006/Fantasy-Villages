@@ -64,7 +64,7 @@ public class BuildingManager : MonoBehaviour
                 Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitEvent;
                 Physics.Raycast(camRay, out hitEvent);
-                buildingPlanner = Instantiate(buildings[0], new Vector3(hitEvent.point.x, 0, hitEvent.point.z), Quaternion.identity);
+                buildingPlanner = Instantiate(buildings[0], new Vector3(hitEvent.point.x, 0, hitEvent.point.z),Quaternion.identity);
                 ClickBool = false;               
             }
         }
