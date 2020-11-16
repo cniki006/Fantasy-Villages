@@ -21,8 +21,11 @@ public class Enemy : MonoBehaviour
         movePoint = GameObject.Find("TownCenter").transform.position;
         if (HP <= 0)
         {
+            GameObject hud = GameObject.Find("HUD");
+            HUD hud_script = hud.GetComponent<HUD>();
             HP = 0;
             Destroy(this.gameObject);
+            hud_script.killAmount++;
         }
     }
 

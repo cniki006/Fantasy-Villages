@@ -43,11 +43,19 @@ public class BuildingManager : MonoBehaviour
     {
         GameObject GameManager = GameObject.Find("GameManager");
         GameManager_Script gameManager_Script = GameManager.GetComponent<GameManager_Script>();
-        for (int i = 0; i < gameManager_Script.ControlledCreatures.Count; i++)
+        if (gameManager_Script.ControlledCreatures.Count != 0)
         {
-            GameObject builderCheck = gameManager_Script.ControlledCreatures[i];
-            CreatureBehavior builderScript = builderCheck.GetComponent<CreatureBehavior>();
-            if (builderScript.builder == true && gameManager_Script.ControlledCreatures.Count != 0) buildingMenu.gameObject.SetActive(true);
+            for (int i = 0; i < gameManager_Script.ControlledCreatures.Count; i++)
+            {
+                GameObject builderCheck = gameManager_Script.ControlledCreatures[i];
+                CreatureBehavior builderScript = builderCheck.GetComponent<CreatureBehavior>();
+                if (gameManager_Script.ControlledCreatures[i].tag == "Building") buildingMenu.gameObject.SetActive(false);
+                if (gameManager_Script.ControlledCreatures[i].tag == "Creature")
+                {
+                    if (builderScript.builder == true && gameManager_Script.ControlledCreatures.Count != 0) buildingMenu.gameObject.SetActive(true);
+                }
+                if (gameManager_Script.ControlledCreatures[i].tag == "Building") buildingMenu.gameObject.SetActive(false);
+            }
         }
         if (gameManager_Script.ControlledCreatures.Count == 0) buildingMenu.gameObject.SetActive(false);
     }
@@ -79,10 +87,12 @@ public class BuildingManager : MonoBehaviour
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitEvent;
         Physics.Raycast(camRay, out hitEvent);
-
-        buildingPlanner.transform.position = new Vector3(hitEvent.point.x, 0, hitEvent.point.z);
+        if (buildingPlanner != null)
+        {
+            buildingPlanner.transform.position = new Vector3(hitEvent.point.x, 0, hitEvent.point.z);
+        }
         if (Input.GetMouseButtonDown(1)) { Destroy(buildingPlanner); }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && buildingPlanner != null)
         {
             Buildings.Add(Instantiate(buildingPlanner, buildingPlanner.transform.position, Quaternion.identity));
             gameManager_Script.gold -= buildingPrices[0];

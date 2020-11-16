@@ -8,9 +8,12 @@ using UnityEngine.UI;
 public class HUD : MonoBehaviour
 {
     [SerializeField] private Text goldText;
+    [SerializeField] private Text killText;
     [SerializeField] private Text defeat;
+    public int killAmount = 0;
  
     public void SetGold(int value) { goldText.text = System.String.Format("{0}: {1}","Gold",value) ; }
+    public void KillCount(int value) { killText.text = System.String.Format("{0}: {1}", "Killed orcs", value); }
     // Start is called before the first frame update
     void Start()
     {
@@ -28,5 +31,6 @@ public class HUD : MonoBehaviour
         { defeat.gameObject.SetActive(true); 
         }
         SetGold(gameManager_Script.gold);
+        KillCount(killAmount);
     }
 }
