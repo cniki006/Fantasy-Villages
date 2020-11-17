@@ -455,7 +455,8 @@ MonoBehaviour:
   buildings:
   - {fileID: 4179312304244668988, guid: e4b4b294d191dc745b0580ecd698b4c2, type: 3}
   buildingPrices: 90010000
-  button1: {fileID: 1076121561}
+  buttons:
+  - {fileID: 1076121561}
   buildingMenu: {fileID: 1050400647}
 --- !u!4 &693183347
 Transform:

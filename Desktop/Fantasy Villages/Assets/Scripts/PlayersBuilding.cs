@@ -6,18 +6,24 @@ using UnityEngine.UI;
 
 public class PlayersBuilding : MonoBehaviour
 {
-    [SerializeField] Button button1;
-    [SerializeField] GameObject unit1;
-    [SerializeField] private int unit1price;
+    [SerializeField] List <Button> buttons;
+    [SerializeField] List <GameObject> units;
+    [SerializeField] List <int> unitPrices;
     [SerializeField] public float BHealth;
     public float unit1TrainingTime;
     private bool ClickBool = false;
+    public int synchronizerBuilding = 0;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        button1.gameObject.SetActive(false);
+        for (int i=0; i < buttons.Count; i++)
+        {
+            buttons[i].gameObject.SetActive(false);
+        }
+
+        InvokeRepeating("ButtonCheck",0.0f,0.01f) ;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,35 +42,67 @@ public class PlayersBuilding : MonoBehaviour
 
         if (gameManager_Script.ControlledCreatures.Contains(this.gameObject))
         {
-            button1.gameObject.SetActive(true);
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].gameObject.SetActive(true);
+            }
         }
-        else { button1.gameObject.SetActive(false); }
-        button1.onClick.AddListener(ClickButton1);
-        CreateUnit1();
+        else {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].gameObject.SetActive(false);
+            }
+        }
+
+
+        CreateUnit();
+        ButtonCheck();
         if (BHealth <= 0) Destroy(this.gameObject);
+
     }
-        
-    void ClickButton1()
+
+    void ButtonCheck()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitEvent;
+            Physics.Raycast(camRay, out hitEvent);
+            if (Physics.Raycast(camRay, out hitEvent))
+            {
+                if (hitEvent.collider.transform.tag == "Button")
+                {
+                    for (int i = 0; i < buttons.Count; i++)
+                    {
+                        if (hitEvent.collider.gameObject.Equals(buttons[i])) { synchronizerBuilding = i; }
+                    }
+                    //Debug.Log(hitEvent.collider.gameObject.name);
+                }
+            }
+        }
+    }
+
+    void ClickButton()
     {
         GameObject GameManager = GameObject.Find("GameManager");
         GameManager_Script gameManager_Script = GameManager.GetComponent<GameManager_Script>();
-        if (gameManager_Script.gold >= unit1price)
+        if (gameManager_Script.gold >= unitPrices[synchronizerBuilding])
         {
             ClickBool = true;
         }
     }
-    void CreateUnit1()
+    void CreateUnit()
     {
         GameObject GameManager = GameObject.Find("GameManager");
         GameManager_Script gameManager_Script = GameManager.GetComponent<GameManager_Script>();
         //workerTrainingTime -= Time.deltaTime;
         // if (workerTrainingTime <= 0)
         {
-            if (ClickBool == true && gameManager_Script.gold >= unit1price)
+            if (ClickBool == true && gameManager_Script.gold >= unitPrices[synchronizerBuilding])
             {
-                Instantiate(unit1, new Vector3(transform.position.x, 0, transform.position.z-50), Quaternion.identity);
+                Instantiate(units[synchronizerBuilding], new Vector3(transform.position.x, 0, transform.position.z-50), Quaternion.identity);
                 ClickBool = false;
-                gameManager_Script.gold -= unit1price;
+                gameManager_Script.gold -= unitPrices[synchronizerBuilding];
             }
         }
         //workerTrainingTime = 10;

@@ -7,12 +7,13 @@ public class BuildingManager : MonoBehaviour
 {
     [SerializeField] List <GameObject> buildings = new List<GameObject>();
     List<GameObject> Buildings = new List<GameObject>();
-    [SerializeField] List<int> buildingPrices = new List<int>();
-    [SerializeField] Button button1;
+    [SerializeField] List <int> buildingPrices;
+    [SerializeField] List <Button> buttons;
     [SerializeField] Canvas buildingMenu;
     private bool ClickBool = false;
+    private int synchronizer;
     private GameObject buildingPlanner;
-    private bool planningBuildingNow;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,16 +24,20 @@ public class BuildingManager : MonoBehaviour
     void Update()
     {
         ControlledWorkerCheck();
-        button1.onClick.AddListener(ClickButton1);
-        CreateBuilding1();
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            synchronizer = i;
+            buttons[i].onClick.AddListener(ClickButton);
+        }
+        CreateBuilding();
         ChooseLocation();
     }
 
-    void ClickButton1()
+    void ClickButton()
     {
         GameObject GameManager = GameObject.Find("GameManager");
         GameManager_Script gameManager_Script = GameManager.GetComponent<GameManager_Script>();
-        if (gameManager_Script.gold >= buildingPrices[0])
+        if (gameManager_Script.gold >= buildingPrices[synchronizer])
         {
             ClickBool = true;
             gameManager_Script.ControlledCreatures.Clear();
@@ -60,19 +65,19 @@ public class BuildingManager : MonoBehaviour
         if (gameManager_Script.ControlledCreatures.Count == 0) buildingMenu.gameObject.SetActive(false);
     }
 
-    void CreateBuilding1()
+    void CreateBuilding()
     {
         GameObject GameManager = GameObject.Find("GameManager");
         GameManager_Script gameManager_Script = GameManager.GetComponent<GameManager_Script>();
         //workerTrainingTime -= Time.deltaTime;
         // if (workerTrainingTime <= 0)
         {
-            if (ClickBool == true && gameManager_Script.gold >= buildingPrices[0])
+            if (ClickBool == true && gameManager_Script.gold >= buildingPrices[synchronizer])
             {
                 Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitEvent;
                 Physics.Raycast(camRay, out hitEvent);
-                buildingPlanner = Instantiate(buildings[0], new Vector3(hitEvent.point.x, 0, hitEvent.point.z),Quaternion.identity);
+                buildingPlanner = Instantiate(buildings[synchronizer], new Vector3(hitEvent.point.x, 0, hitEvent.point.z),Quaternion.identity);
                 ClickBool = false;               
             }
         }
@@ -95,7 +100,7 @@ public class BuildingManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && buildingPlanner != null)
         {
             Buildings.Add(Instantiate(buildingPlanner, buildingPlanner.transform.position, Quaternion.identity));
-            gameManager_Script.gold -= buildingPrices[0];
+            gameManager_Script.gold -= buildingPrices[synchronizer];
             Destroy(buildingPlanner);
         }
     }

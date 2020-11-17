@@ -11,6 +11,7 @@ TagManager:
   - Building
   - Worker
   - Enemy
+  - Button
   layers:
   - Default
   - TransparentFX

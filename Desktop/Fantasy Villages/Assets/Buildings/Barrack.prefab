@@ -112,13 +112,15 @@ GameObject:
   - component: {fileID: 386480410131818234}
   - component: {fileID: 2912698564820051700}
   - component: {fileID: 8087509144729229436}
+  - component: {fileID: 3580936413113384460}
+  - component: {fileID: 3039078240903882998}
   m_Layer: 0
   m_Name: EliteSoldierButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2712708091603242357
 RectTransform:
   m_ObjectHideFlags: 0
@@ -218,6 +220,35 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!54 &3580936413113384460
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2622305752486953003}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &3039078240903882998
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2622305752486953003}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3419005294756710207
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,9 +338,11 @@ GameObject:
   - component: {fileID: 7957971266140700085}
   - component: {fileID: 5515476205263239178}
   - component: {fileID: 30738774721861677}
+  - component: {fileID: 3899917807179861076}
+  - component: {fileID: 3798018669048158109}
   m_Layer: 0
   m_Name: SoldierButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -413,6 +446,35 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!65 &3899917807179861076
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3868339505265352002}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &3798018669048158109
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3868339505265352002}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4179312304244668988
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,11 +530,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdbc99ae771d7e24badbae57be2eff03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button1: {fileID: 30738774721861677}
-  unit1: {fileID: 5365936364298125808, guid: ad44e6ffde6c65e478edbbf51c154d28, type: 3}
-  unit1price: 200
+  buttons:
+  - {fileID: 30738774721861677}
+  units:
+  - {fileID: 5365936364298125808, guid: ad44e6ffde6c65e478edbbf51c154d28, type: 3}
+  unitPrices: c8000000
   BHealth: 100
   unit1TrainingTime: 0
+  synchronizerBuilding: 0
 --- !u!23 &5348855657368826321
 MeshRenderer:
   m_ObjectHideFlags: 0
