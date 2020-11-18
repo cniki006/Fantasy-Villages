@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlayersBuilding : MonoBehaviour
 {
@@ -13,17 +14,24 @@ public class PlayersBuilding : MonoBehaviour
     public float unit1TrainingTime;
     private bool ClickBool = false;
     public int synchronizerBuilding = 0;
+    public bool house;
+    public int houseLivingSpace;
+    
+
+    [SerializeField] Canvas buildingMenu;
 
 
     // Start is called before the first frame update
     void Start()
     {
+
+
         for (int i=0; i < buttons.Count; i++)
         {
             buttons[i].gameObject.SetActive(false);
         }
 
-        InvokeRepeating("ButtonCheck",0.0f,0.01f) ;
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,6 +41,8 @@ public class PlayersBuilding : MonoBehaviour
             BHealth -= 10;
         }
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -53,30 +63,55 @@ public class PlayersBuilding : MonoBehaviour
                 buttons[i].gameObject.SetActive(false);
             }
         }
-
-
+        HouseCheck();
+        RayCastCheck();
         CreateUnit();
-        ButtonCheck();
+
         if (BHealth <= 0) Destroy(this.gameObject);
 
     }
 
-    void ButtonCheck()
+    void HouseCheck()
+    {
+        HUD hud_script = GameObject.Find("HUD").GetComponent<HUD>();
+        if (house == true)
+        {
+            Debug.Log("This is a little house");
+            BuildingManager b_script = GameObject.Find("BuilingManager").GetComponent<BuildingManager>();
+            for (int i = 0; i < b_script.Buildings.Count; i++)
+            {
+                Debug.Log("This is a fine house");
+                if (b_script.Buildings[i] == this.gameObject)
+                {
+                    hud_script.unitTreshold += houseLivingSpace;
+                    house = false;
+                }
+            }
+
+
+        }
+    }
+
+    void RayCastCheck()
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitEvent;
-            Physics.Raycast(camRay, out hitEvent);
-            if (Physics.Raycast(camRay, out hitEvent))
+            GameObject GameManager = GameObject.Find("GameManager");
+            GameManager_Script gameManager_Script = GameManager.GetComponent<GameManager_Script>();           
+            foreach (RaycastResult result in gameManager_Script.RaycastResults(buildingMenu))
             {
-                if (hitEvent.collider.transform.tag == "Button")
+                if (result.gameObject.tag == "Button")
                 {
+                    Debug.Log("ButtonClicked");
+
                     for (int i = 0; i < buttons.Count; i++)
                     {
-                        if (hitEvent.collider.gameObject.Equals(buttons[i])) { synchronizerBuilding = i; }
+                        if (result.gameObject.name == (buttons[i]).name)
+                        {
+                            synchronizerBuilding = i;
+                            ClickButton();
+                        }
                     }
-                    //Debug.Log(hitEvent.collider.gameObject.name);
                 }
             }
         }
@@ -95,10 +130,11 @@ public class PlayersBuilding : MonoBehaviour
     {
         GameObject GameManager = GameObject.Find("GameManager");
         GameManager_Script gameManager_Script = GameManager.GetComponent<GameManager_Script>();
+        HUD hud_script = GameObject.Find("HUD").GetComponent<HUD>();
         //workerTrainingTime -= Time.deltaTime;
         // if (workerTrainingTime <= 0)
         {
-            if (ClickBool == true && gameManager_Script.gold >= unitPrices[synchronizerBuilding])
+            if (ClickBool == true && gameManager_Script.gold >= unitPrices[synchronizerBuilding] && hud_script.unitTreshold > gameManager_Script.allCreatures.Length)
             {
                 Instantiate(units[synchronizerBuilding], new Vector3(transform.position.x, 0, transform.position.z-50), Quaternion.identity);
                 ClickBool = false;

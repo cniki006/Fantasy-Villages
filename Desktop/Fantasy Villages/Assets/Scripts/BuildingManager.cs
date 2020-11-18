@@ -2,36 +2,66 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class BuildingManager : MonoBehaviour
 {
-    [SerializeField] List <GameObject> buildings = new List<GameObject>();
-    List<GameObject> Buildings = new List<GameObject>();
-    [SerializeField] List <int> buildingPrices;
-    [SerializeField] List <Button> buttons;
+    [SerializeField] List<GameObject> buildings = new List<GameObject>();
+    public List<GameObject> Buildings = new List<GameObject>();
+    [SerializeField] List<int> buildingPrices;
+    [SerializeField] List<Button> buttons;
     [SerializeField] Canvas buildingMenu;
     private bool ClickBool = false;
-    private int synchronizer;
+    public int synchronizer;
     private GameObject buildingPlanner;
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         buildingMenu.gameObject.SetActive(false);
+
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
         ControlledWorkerCheck();
-        for (int i = 0; i < buttons.Count; i++)
-        {
-            synchronizer = i;
-            buttons[i].onClick.AddListener(ClickButton);
-        }
         CreateBuilding();
         ChooseLocation();
+        RayCastCheck();
     }
+
+    void RayCastCheck()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            GameObject GameManager = GameObject.Find("GameManager");
+            GameManager_Script gameManager_Script = GameManager.GetComponent<GameManager_Script>();
+            foreach (RaycastResult result in gameManager_Script.RaycastResults(buildingMenu))
+            {
+                if (result.gameObject.tag == "Button")
+                {
+                    Debug.Log("ButtonClicked");
+
+                    for (int i = 0; i < buttons.Count; i++)
+                    {
+                        if (result.gameObject.name == (buttons[i]).name)
+                        {
+                            synchronizer = i;
+                            ClickButton();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     void ClickButton()
     {

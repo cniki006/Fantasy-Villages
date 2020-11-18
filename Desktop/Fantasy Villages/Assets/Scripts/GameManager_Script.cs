@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
@@ -13,12 +14,16 @@ public class GameManager_Script : MonoBehaviour
     Vector3 mouseHoldVector;
     float lengthX, lengthZ;
     float directionX, directionY;
-    [SerializeField] GameObject[] allCreatures;
+    [SerializeField] public GameObject[] allCreatures;
+    [SerializeField] public GameObject[] allEnemies;
     [SerializeField] public GameObject drawPoint;
     [SerializeField]List<GameObject> drawPoints = new List<GameObject>();
     Vector3 lineCheck;
     bool boxCheck = false, bound1 = false, bound2 = false;
 
+    GraphicRaycaster m_Raycaster;
+    PointerEventData m_PointerEventData;
+    EventSystem m_EventSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +36,27 @@ public class GameManager_Script : MonoBehaviour
     {
         ChooseControlledCreatures();
         allCreatures = GameObject.FindGameObjectsWithTag("Creature");
+        allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+    }
+
+    public List<RaycastResult> RaycastResults(Canvas menu)
+    {
+        m_Raycaster = menu.GetComponent<GraphicRaycaster>();
+        m_EventSystem = GetComponent<EventSystem>();
+        //Check if the left Mouse button is clicked
+
+            //Set up the new Pointer Event
+        m_PointerEventData = new PointerEventData(m_EventSystem);
+            //Set the Pointer Event Position to that of the mouse position
+        m_PointerEventData.position = Input.mousePosition;
+
+        
+
+        //Create a list of Raycast Results
+        List<RaycastResult> results = new List<RaycastResult>();
+        m_Raycaster.Raycast(m_PointerEventData, results);
+
+        return results;
     }
 
     void ChooseControlledCreatures ()

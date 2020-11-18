@@ -532,12 +532,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttons:
   - {fileID: 30738774721861677}
+  - {fileID: 8087509144729229436}
   units:
   - {fileID: 5365936364298125808, guid: ad44e6ffde6c65e478edbbf51c154d28, type: 3}
-  unitPrices: c8000000
+  - {fileID: 4807587769331043256, guid: e08d78f5be3759946a7099137732e389, type: 3}
+  unitPrices: c8000000e8030000
   BHealth: 100
   unit1TrainingTime: 0
   synchronizerBuilding: 0
+  buildingMenu: {fileID: 5592990991462390379}
 --- !u!23 &5348855657368826321
 MeshRenderer:
   m_ObjectHideFlags: 0

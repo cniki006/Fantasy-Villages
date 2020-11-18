@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3317826203921963417}
   - component: {fileID: 3317826203921963414}
   - component: {fileID: 3317826203921963415}
-  - component: {fileID: 3317826203921963412}
   - component: {fileID: 3317826203921963413}
+  - component: {fileID: 5417485098410336173}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Creature
@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97050d8885e8b834f994cddfbc06b853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  range: {fileID: 2180786318442641190, guid: 271da359ec47971448a09ef18cee74da, type: 3}
   builder: 1
   soldier: 0
   health: 10
@@ -100,19 +101,7 @@ MonoBehaviour:
   bringingGold: 0
   fightCommand: 0
   speed: 40
---- !u!65 &3317826203921963412
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317826203921963410}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  timer: 0
 --- !u!54 &3317826203921963413
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -129,3 +118,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &5417485098410336173
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317826203921963410}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Center: {x: 0, y: 0, z: 0}

@@ -18,8 +18,9 @@ public class OrcSpawner : MonoBehaviour
     void Update()
     {
         timerCount -= Time.deltaTime;
-        if (timerCount <= 0)
+        if (timerCount <= 0 && GameObject.Find("GameManager").GetComponent<GameManager_Script>().allEnemies.Length <= 100)
         {
+
             spawnWave(); 
             waveSize += 2;
             timerCount = waveTimer + 1;

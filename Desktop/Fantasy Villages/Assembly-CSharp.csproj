@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ArrowScript.cs" />
     <Compile Include="Assets\Scripts\BuildingManager.cs" />
     <Compile Include="Assets\Scripts\ControllCamera.cs" />
     <Compile Include="Assets\Scripts\CreatureBehavior.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Assets\Scripts\Mine.cs" />
     <Compile Include="Assets\Scripts\OrcSpawner.cs" />
     <Compile Include="Assets\Scripts\PlayersBuilding.cs" />
+    <Compile Include="Assets\Scripts\Range.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/nikita.kiuru/Desktop/Fantasy Villages/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
