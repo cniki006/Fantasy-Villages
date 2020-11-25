@@ -12,6 +12,8 @@ TagManager:
   - Worker
   - Enemy
   - Button
+  - Projectile
+  - Menu
   layers:
   - Default
   - TransparentFX

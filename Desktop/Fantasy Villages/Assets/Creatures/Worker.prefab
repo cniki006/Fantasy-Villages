@@ -93,15 +93,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97050d8885e8b834f994cddfbc06b853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: {fileID: 2180786318442641190, guid: 271da359ec47971448a09ef18cee74da, type: 3}
   builder: 1
   soldier: 0
+  archer: 0
+  arrow: {fileID: 0}
   health: 10
+  goldAdd: 2
   mineCommand: 0
   bringingGold: 0
   fightCommand: 0
+  enemy: {fileID: 0}
   speed: 40
   timer: 0
+  shootSpeed: 0
+  shootCommand: 0
+  hasShotArrow: 0
 --- !u!54 &3317826203921963413
 Rigidbody:
   m_ObjectHideFlags: 0

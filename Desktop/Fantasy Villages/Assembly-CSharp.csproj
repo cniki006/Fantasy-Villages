@@ -63,18 +63,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\ArrowScript.cs" />
     <Compile Include="Assets\Scripts\BuildingManager.cs" />
     <Compile Include="Assets\Scripts\ControllCamera.cs" />
     <Compile Include="Assets\Scripts\CreatureBehavior.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyAi.cs" />
     <Compile Include="Assets\Scripts\GameManager_Script.cs" />
+    <Compile Include="Assets\Scripts\GameMenu.cs" />
     <Compile Include="Assets\Scripts\HUD.cs" />
     <Compile Include="Assets\Scripts\Mine.cs" />
     <Compile Include="Assets\Scripts\OrcSpawner.cs" />
     <Compile Include="Assets\Scripts\PlayersBuilding.cs" />
     <Compile Include="Assets\Scripts\Range.cs" />
+    <None Include="Assets\OtherAssets\craftpix-net-649323-free-medieval-houses-3d-low-poly-pack\License.txt" />
+    <None Include="Assets\OtherAssets\craftpix-561109-free-bush-3d-low-poly-models\readme.txt" />
+    <None Include="Assets\OtherAssets\craftpix-561109-free-bush-3d-low-poly-models\License.txt" />
+    <None Include="Assets\OtherAssets\craftpix-net-649323-free-medieval-houses-3d-low-poly-pack\readme.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/nikita.kiuru/Desktop/Fantasy Villages/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

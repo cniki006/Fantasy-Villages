@@ -14,6 +14,8 @@ public class CreatureBehavior : MonoBehaviour
     [SerializeField] private GameObject arrow;
     [SerializeField] public float health;
 
+    public int goldAdd;
+
     public bool mineCommand, bringingGold, fightCommand = false;
     private GameObject fighterTarget;
     Vector3 tempVect;
@@ -25,6 +27,9 @@ public class CreatureBehavior : MonoBehaviour
     public float timer = 0.5f;
     public float shootSpeed;
     public bool shootCommand = false;
+    List <GameObject> flyingArrows;
+
+    public bool hasShotArrow = false;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +37,7 @@ public class CreatureBehavior : MonoBehaviour
         tempSpeed = speed;
         movePoint = transform.position;
         InvokeRepeating("Move", 0.0f, 0.01f);
-
+        InvokeRepeating("ArrowMove", 0.0f, 0.01f);
     }
 
     // Update is called once per frame
@@ -44,10 +49,37 @@ public class CreatureBehavior : MonoBehaviour
         MoveCommand();
         Archery();
 
+        GameManager_Script menuCheck = GameObject.Find("GameManager").GetComponent<GameManager_Script>();
+
+        if (menuCheck.menu.activeSelf == true)
+        {
+            speed = 0;
+        }
+        else
+        {
+            speed = tempSpeed;
+        }
+
         if (mineCommand == true) MineCommand(mine);
         if (fightCommand == true) FightCommand(enemy);
         if (health <= 0) Destroy(this.gameObject);
         //FighterStation();
+        if (enemy != null)
+        {
+            enemy = enemy;
+        } else
+        {
+            enemy = null;
+        }
+
+        if (enemy == null)
+        {
+            for (int i = 0; i < flyingArrows.Count; i++)
+            {
+                Destroy(flyingArrows[i]);
+                flyingArrows.RemoveAt(i);
+            }
+        }
     }
 
     void UnderControlCheck ()
@@ -111,13 +143,34 @@ public class CreatureBehavior : MonoBehaviour
         {
             shootCommand = false;
         }
-        
-        if (arrow != null && shootCommand == true && timer <= 0)
+
+        if (arrow != null && shootCommand == true && timer <= 0 && hasShotArrow == false)
         {
-             Instantiate(arrow, transform.position, Quaternion.identity);
+
              timer = 1.2f;
+            hasShotArrow = true;
         }      
+
+        if (timer <= 0)
+        {
+            hasShotArrow = false;
+            timer = 0;
+        }
+        if (hasShotArrow == true)
+        {
+            /*flyingArrows.Add(*/Instantiate(arrow, new Vector3(transform.position.x, transform.position.y + 10, transform.position.z), Quaternion.identity)/*)*/;
+        }
     }
+
+    void ArrowMove()
+    {
+        for (int i = 0; i < flyingArrows.Count; i++)
+        {
+            flyingArrows[i].transform.position = Vector3.MoveTowards(flyingArrows[i].transform.position, enemy.transform.position, 200 * Time.deltaTime);
+            flyingArrows[i].transform.LookAt(enemy.transform.position);
+        }
+    }
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -135,7 +188,7 @@ public class CreatureBehavior : MonoBehaviour
         if (other.name == "TownCenter" && mineCommand == true)
         {
             bringingGold = false;
-            gameManager_Script.gold += 10;
+            gameManager_Script.gold += goldAdd;
         }
 
         if (other.tag == "Enemy" && fightCommand == true)
@@ -159,16 +212,16 @@ public class CreatureBehavior : MonoBehaviour
     void SolveCollision(GameObject other)
     {
         tempVect = movePoint;
-        float timer = 1f;
+        timer = 1f;
         
         if (timer >= 0)
         {
-            //movePoint.x= (2 * transform.position.x)-other.transform.position.x;
-            //movePoint.z = (2 * transform.position.z) - other.transform.position.z;
-            //movePoint.z = 10;
+            movePoint.x= (2 * transform.position.x)-other.transform.position.x;
+            movePoint.z = (2 * transform.position.z) - other.transform.position.z;
+            movePoint.z = 10;
 
         }
-        //movePoint = tempVect;
+        movePoint = tempVect;
     }
 
     private void OnTriggerExit(Collider other)

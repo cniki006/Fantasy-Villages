@@ -14,12 +14,16 @@ public class GameManager_Script : MonoBehaviour
     Vector3 mouseHoldVector;
     float lengthX, lengthZ;
     float directionX, directionY;
+    [SerializeField] GameObject hud;
     [SerializeField] public GameObject[] allCreatures;
     [SerializeField] public GameObject[] allEnemies;
     [SerializeField] public GameObject drawPoint;
     [SerializeField]List<GameObject> drawPoints = new List<GameObject>();
     Vector3 lineCheck;
     bool boxCheck = false, bound1 = false, bound2 = false;
+
+    [SerializeField] public GameObject menu;
+    public Canvas hudCanvas;
 
     GraphicRaycaster m_Raycaster;
     PointerEventData m_PointerEventData;
@@ -28,7 +32,7 @@ public class GameManager_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Time.timeScale = 0;
     }
 
     // Update is called once per frame
@@ -37,6 +41,40 @@ public class GameManager_Script : MonoBehaviour
         ChooseControlledCreatures();
         allCreatures = GameObject.FindGameObjectsWithTag("Creature");
         allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        hud = GameObject.Find("HUD");
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            menu.SetActive(true);
+        }
+
+        if (menu.gameObject.activeSelf == false)
+        {
+            Time.timeScale = 1;
+        }
+
+        if (menu.gameObject.activeSelf == true)
+        {
+            Time.timeScale = 0;
+        }
+
+        if (menu.gameObject.activeSelf == true)
+        {
+
+            hud.SetActive(false);
+        }
+
+        if (menu.gameObject.activeSelf == true)
+        {
+
+            hud.SetActive(true);
+        }
+
+        //if (Input.GetKey(KeyCode.Escape))
+        //{
+        //    menu.gameObject.SetActive(true);
+        //}
+
     }
 
     public List<RaycastResult> RaycastResults(Canvas menu)

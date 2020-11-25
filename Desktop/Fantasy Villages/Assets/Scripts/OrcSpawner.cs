@@ -17,13 +17,14 @@ public class OrcSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         timerCount -= Time.deltaTime;
-        if (timerCount <= 0 && GameObject.Find("GameManager").GetComponent<GameManager_Script>().allEnemies.Length <= 100)
+        if (timerCount <= 0 && GameObject.Find("GameManager").GetComponent<GameManager_Script>().allEnemies.Length <= 50)
         {
 
             spawnWave(); 
             waveSize += 2;
-            timerCount = waveTimer + 1;
+            timerCount = waveTimer / 2;
         }
     }
 
