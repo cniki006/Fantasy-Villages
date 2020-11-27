@@ -28,7 +28,7 @@ public class ControllCamera : MonoBehaviour
         {
             transform.position = transform.position + new Vector3((Screen.width / 2 - Input.mousePosition.x) / Mathf.Abs((Screen.width / 2 - Input.mousePosition.x)) * Time.deltaTime * CameraSpeed * -1, 0, 0);
         }
-        if (Input.mousePosition.y >= Screen.height || Input.mousePosition.y <= 0)
+        if (Input.mousePosition.y >= Screen.height - 10 || Input.mousePosition.y <= 10)
         {
             transform.position = transform.position + new Vector3(0, 0, (Screen.height / 2 - Input.mousePosition.y) / Mathf.Abs((Screen.height / 2 - Input.mousePosition.y)) * Time.deltaTime * CameraSpeed * -1);
         }

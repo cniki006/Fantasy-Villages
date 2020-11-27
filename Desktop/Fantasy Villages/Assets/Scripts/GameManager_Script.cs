@@ -23,15 +23,17 @@ public class GameManager_Script : MonoBehaviour
     bool boxCheck = false, bound1 = false, bound2 = false;
 
     [SerializeField] public GameObject menu;
-    public Canvas hudCanvas;
 
     GraphicRaycaster m_Raycaster;
     PointerEventData m_PointerEventData;
     EventSystem m_EventSystem;
 
+    [SerializeField] Text a, b, c;
+
     // Start is called before the first frame update
     void Start()
     {
+        Screen.SetResolution(1024, 768, true);
         Time.timeScale = 0;
     }
 
@@ -41,7 +43,7 @@ public class GameManager_Script : MonoBehaviour
         ChooseControlledCreatures();
         allCreatures = GameObject.FindGameObjectsWithTag("Creature");
         allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-        hud = GameObject.Find("HUD");
+ 
 
         if (Input.GetKey(KeyCode.Escape))
         {
@@ -60,14 +62,16 @@ public class GameManager_Script : MonoBehaviour
 
         if (menu.gameObject.activeSelf == true)
         {
-
-            hud.SetActive(false);
+            a.gameObject.SetActive(false);
+            b.gameObject.SetActive(false);
+            c.gameObject.SetActive(false);
         }
-
-        if (menu.gameObject.activeSelf == true)
+        
+        if (menu.gameObject.activeSelf == false)
         {
-
-            hud.SetActive(true);
+            a.gameObject.SetActive(true);
+            b.gameObject.SetActive(true);
+            c.gameObject.SetActive(true);
         }
 
         //if (Input.GetKey(KeyCode.Escape))

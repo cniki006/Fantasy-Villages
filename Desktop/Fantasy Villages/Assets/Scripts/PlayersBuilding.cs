@@ -69,6 +69,14 @@ public class PlayersBuilding : MonoBehaviour
 
         if (BHealth <= 0) Destroy(this.gameObject);
 
+        if (gameManager_Script.menu.activeSelf == true)
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].gameObject.SetActive(false);
+            }
+        }
+
     }
 
     void HouseCheck()
